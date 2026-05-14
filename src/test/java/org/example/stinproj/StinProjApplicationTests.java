@@ -1,13 +1,13 @@
 package org.example.stinproj;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class StinProjApplicationTests {
+class StinProjApplicationTest {
 
     @Test
-    void contextLoads() {
-    }
+    void mainRuns() {
 
+        StinProjApplication.main(new String[]{});
+
+    }
 }
