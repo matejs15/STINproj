@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="../../../../../Users/matas/Downloads/script.js" defer></script>
+</head>
+<body>
+
+<main class="layout">
+
+    <div class="top-line">
+        <h1 id="titleText">Currency Analyzer</h1>
+
+        <div class="language">
+            <label for="langSwitch">Lang</label>
+            <select id="langSwitch" onchange="changeLanguage(this.value)">
+                <option value="cs">CZ</option>
+                <option value="en">EN</option>
+            </select>
+        </div>
+    </div>
+
+    <section class="controls">
+        <h2 id="settingsTitle">Nastavení</h2>
+        <p id="settingsDescription">Vyber základní měnu, období a měny pro porovnání.</p>
+
+        <div class="row">
+            <div class="field">
+                <label id="baseCurrencyLabel" for="base">Základní měna</label>
+                <select id="base">
+                    <option>AUD</option><option>CAD</option><option>CHF</option>
+                    <option>CNY</option><option>CZK</option><option>DKK</option>
+                    <option selected>EUR</option><option>GBP</option><option>HKD</option>
+                    <option>HUF</option><option>ILS</option><option>JPY</option>
+                    <option>MXN</option><option>NOK</option><option>NZD</option>
+                    <option>PHP</option><option>PLN</option><option>RON</option>
+                    <option>SEK</option><option>SGD</option><option>THB</option>
+                    <option>TRY</option><option>USD</option><option>ZAR</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label id="dateRangeLabel">Časové období</label>
+                <div class="dates">
+                    <input type="date" id="dateFrom" value="2026-01-01">
+                    <input type="date" id="dateTo" value="2026-02-01">
+                </div>
+            </div>
+        </div>
+
+        <div class="field">
+            <label id="trackedCurrenciesLabel">Vybrané měny</label>
+            <div id="chips" class="chips"></div>
+        </div>
+
+        <div class="buttons">
+            <button id="loadBtn" onclick="loadData()">Načíst data</button>
+            <button id="saveBtn" onclick="saveSettings()">Uložit nastavení</button>
+        </div>
+    </section>
+
+    <div id="errorBox" class="error"></div>
+
+    <section id="results">
+
+        <div class="stats">
+            <div>
+                <span id="strongestLabel">Nejsilnější měna</span>
+                <h2 id="strongest">-</h2>
+                <small id="strongestRate"></small>
+            </div>
+
+            <div>
+                <span id="weakestLabel">Nejslabší měna</span>
+                <h2 id="weakest">-</h2>
+                <small id="weakestRate"></small>
+            </div>
+
+
+        </div>
+
+        <h2 id="tableTitle">Kurzy</h2>
+
+        <table>
+            <thead>
+            <tr>
+                <th id="tableCurrencyHeader">Měna</th>
+                <th id="tableRateHeader">Kurz vůči základní</th>
+                <th id="tableDateHeader">Průměr za dobu</th>
+            </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+
+    </section>
+
+</main>
+
+</body>
+</html>

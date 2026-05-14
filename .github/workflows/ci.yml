@@ -1,0 +1,40 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ "main", "master", "development" ]
+  pull_request:
+    branches: [ "main", "master", "development" ]
+
+jobs:
+  build-test-coverage-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout projektu
+        uses: actions/checkout@v4
+
+      - name: Nastavení JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+
+      - name: Build aplikace
+        run: mvn clean package
+
+      - name: Spuštění testů a coverage
+        run: mvn clean verify
+
+      - name: Uložení coverage reportu
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-report
+          path: target/site/jacoco
+
+      - name: Deploy mimo localhost
+        if: github.ref == 'refs/heads/development'
+        run: curl "$RENDER_DEPLOY_HOOK"
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
